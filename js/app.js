@@ -1,7 +1,9 @@
 const app = new Vue({
   el: "#app",
   data: {
-    gameInProgress: false
+    gameInProgress: false,
+    you: new Character(),
+    monster: new Character()
   },
   methods: {
     startGame() {
