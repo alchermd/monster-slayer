@@ -11,6 +11,10 @@ const app = new Vue({
     },
     giveUp() {
       this.gameInProgress = false;
+    },
+    attack() {
+      this.you.attack(this.monster);
+      this.monster.attack(this.you);
     }
   }
 });
