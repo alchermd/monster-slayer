@@ -8,9 +8,10 @@ class Character {
     
     attack(target, damage = null) {
         // Allow damage to be passed as a parameter, compute it otherwise.
-        target.currentLife -= damage !== null ? damage : this.computeDamage();
+        const computedDamage = this.computeDamage();
+        target.currentLife -= damage !== null ? damage : computedDamage;
         
-        return target.currentLife;
+        return computedDamage;
     }
 
     heal(amount) {
