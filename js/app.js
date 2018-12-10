@@ -3,7 +3,8 @@ const app = new Vue({
   data: {
     gameInProgress: false,
     you: new Character(),
-    monster: new Character()
+    monster: new Character(),
+    gameLogs: []
   },
   methods: {
     startGame() {
@@ -11,27 +12,58 @@ const app = new Vue({
       this.monster.currentLife = this.monster.maxLife;
 
       this.gameInProgress = true;
+      this.gameLogs = [];
     },
     giveUp() {
       this.gameInProgress = false;
     },
     attack() {
-      this.you.attack(this.monster);
-      this.monster.attack(this.you);
+      const youAttackAmount = this.you.attack(this.monster);
+      this.gameLogs.push({
+        text: `You attacked for ${youAttackAmount}`,
+        style: { "player-turn": true }
+      });
+
+      const monsterAttackAmount = this.monster.attack(this.you);
+      this.gameLogs.push({
+        text: `Monster attacked for ${monsterAttackAmount}`,
+        style: { "monster-turn": true }
+      });
 
       this.checkForWinner();
     },
     heal() {
-      this.you.heal(
-        Math.floor((this.you.maxLife - this.you.currentLife) * 0.25)
+      const healAmount = Math.floor(
+        (this.you.maxLife - this.you.currentLife) * 0.25
       );
 
-      this.monster.attack(this.you);
+      this.you.heal(healAmount);
+      this.gameLogs.push({
+        text: `You healed for ${healAmount}`,
+        style: { "player-turn": true }
+      });
+
+      const attackAmount = this.monster.attack(this.you);
+      this.gameLogs.push({
+        text: `Monster attacked for ${attackAmount}`,
+        style: { "monster-turn": true }
+      });
+
       this.checkForWinner();
     },
     specialAttack() {
-      this.you.attack(this.monster, this.you.computeDamage() + 20);
-      this.monster.attack(this.you);
+      const specialDamage = this.you.computeDamage() + 20;
+      this.you.attack(this.monster, specialDamage);
+      this.gameLogs.push({
+        text: `You attacked for ${specialDamage}`,
+        style: { "player-turn": true }
+      });
+
+      const monsterAttackAmount = this.monster.attack(this.you);
+      this.gameLogs.push({
+        text: `Monster attacked for ${monsterAttackAmount}`,
+        style: { "monster-turn": true }
+      });
 
       this.checkForWinner();
     },
