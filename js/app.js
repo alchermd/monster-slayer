@@ -7,6 +7,9 @@ const app = new Vue({
   },
   methods: {
     startGame() {
+      this.you.currentLife = this.you.maxLife;
+      this.monster.currentLife = this.monster.maxLife;
+      
       this.gameInProgress = true;
     },
     giveUp() {
