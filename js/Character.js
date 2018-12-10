@@ -6,14 +6,19 @@ class Character {
         this.maxLife = 100;
     }
     
-    attack(target) {
-        // Pick a random value from [minDamage ... maxDamage]
-        target.currentLife -= Math.floor(Math.random() * this.maxDamage + this.minDamage);
+    attack(target, damage = null) {
+        // Allow damage to be passed as a parameter, compute it otherwise.
+        target.currentLife -= damage !== null ? damage : this.computeDamage();
         
         return target.currentLife;
     }
 
     heal(amount) {
         this.currentLife += amount;
+    }
+
+    computeDamage() {
+        // Pick a random value from [minDamage ... maxDamage]
+        return Math.floor(Math.random() * this.maxDamage + this.minDamage);
     }
 }
