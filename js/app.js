@@ -18,6 +18,10 @@ const app = new Vue({
     },
     heal(character) {
       character.heal(Math.floor(character.currentLife * 0.05));
+    },
+    specialAttack() {
+      this.you.attack(this.monster, this.you.computeDamage() + 20);
+      this.monster.attack(this.you);
     }
   }
 });
