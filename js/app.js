@@ -15,6 +15,9 @@ const app = new Vue({
     attack() {
       this.you.attack(this.monster);
       this.monster.attack(this.you);
+    },
+    heal(character) {
+      character.heal(Math.floor(character.currentLife * 0.05));
     }
   }
 });

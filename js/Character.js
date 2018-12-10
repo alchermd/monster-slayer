@@ -12,4 +12,8 @@ class Character {
         
         return target.currentLife;
     }
+
+    heal(amount) {
+        this.currentLife += amount;
+    }
 }
